@@ -2661,6 +2661,9 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
         // * legacy (always)
         // * p2sh (when P2SH enabled in flags and excludes coinbase)
         // * witness (when witness enabled in flags and excludes coinbase)
+        if((flags & SCRIPT_VERIFY_P2SH) == 0){
+            LogPrintf("fucking this hits an error in validation.cpp");
+        }
         nSigOpsCost += GetTransactionSigOpCost(tx, view, flags);
         if (nSigOpsCost > dgpMaxBlockSigOps)
             return state.DoS(100, error("ConnectBlock(): too many sigops"),
